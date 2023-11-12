@@ -1,0 +1,359 @@
+{"0": {
+    "doc": "What is Noir?",
+    "title": "Key Features",
+    "content": ". | Automatically identify language and framework from source code. | Find API endpoints and web pages through code analysis. | Load results quickly through interactions with proxy tools such as ZAP, Burpsuite, Caido and More Proxy tools. | That provides structured data such as JSON and YAML for identified Attack Surfaces to enable seamless interaction with other tools. Also provides command line samples to easily integrate and collaborate with other tools, such as curls or httpie. | . ",
+    "url": "/docs/getting-started/about/#key-features",
+    
+    "relUrl": "/getting-started/about/#key-features"
+  },"1": {
+    "doc": "What is Noir?",
+    "title": "Showcase",
+    "content": " ",
+    "url": "/docs/getting-started/about/#showcase",
+    
+    "relUrl": "/getting-started/about/#showcase"
+  },"2": {
+    "doc": "What is Noir?",
+    "title": "What is Noir?",
+    "content": "Noir is developed with the goal of enabling security engineers and pentesters to easily identify endpoints in source code. It serves as an Attack Surface Detector, conducting static analysis on the source code and various files within the target directory to identify endpoints such as URLs, headers, and parameters. This facilitates the easy identification of endpoints within source code, enabling the transmission of results to other tools or parsing for integration with DAST or logging systems in a DevSecOps environment. ",
+    "url": "/docs/getting-started/about/",
+    
+    "relUrl": "/getting-started/about/"
+  },"3": {
+    "doc": "Set up Build Environment",
+    "title": "Install Crystal",
+    "content": "Before getting started with building Noir, you’ll need to install Crystal-lang. Refer to the link below for installation guidance. https://crystal-lang.org/install/ . If you’re using macOS or Linux, you can easily install it through Homebrew. brew install crystal . ",
+    "url": "/docs/contribute/build#install-crystal",
+    
+    "relUrl": "/contribute/build#install-crystal"
+  },"4": {
+    "doc": "Set up Build Environment",
+    "title": "Clone noir",
+    "content": "# Clone this repo git clone https://github.com/noir-cr/noir cd noir . ",
+    "url": "/docs/contribute/build#clone-noir",
+    
+    "relUrl": "/contribute/build#clone-noir"
+  },"5": {
+    "doc": "Set up Build Environment",
+    "title": "Build",
+    "content": "Install Dependencies . shards install . Build . shards build . By default, Crystal builds including debugging information. For release, build with the flags –release –no-debug to exclude debug info. ",
+    "url": "/docs/contribute/build#build",
+    
+    "relUrl": "/contribute/build#build"
+  },"6": {
+    "doc": "Set up Build Environment",
+    "title": "Set up Build Environment",
+    "content": " ",
+    "url": "/docs/contribute/build",
+    
+    "relUrl": "/contribute/build"
+  },"7": {
+    "doc": "Debugging",
+    "title": "With noir’s debug flag",
+    "content": "Using the --debug flag provides detailed information when running Noir. noir -b . --debug . [D] Start Debug mode [D] Noir version: 0.10.0 [D] Noir options from arguments: base: . url: format: plain output: techs: debug: yes color: yes send_proxy: send_req: no # .... [D] Baking endpoint /posts with 4 params. [D] Baked endpoint /posts with {\"id\":\"\",\"title\":\"\",\"context\":\"\"} body and 1 headers. POST /posts {\"id\":\"\",\"title\":\"\",\"context\":\"\"} X-API-KEY: [D] Baking endpoint /posts/1 with 4 params. [D] Baked endpoint /posts/1 with {\"id\":\"\",\"title\":\"\",\"context\":\"\"} body and 1 headers. PUT /posts/1 {\"id\":\"\",\"title\":\"\",\"context\":\"\"} X-API-KEY: # .... ",
+    "url": "/docs/contribute/debugging#with-noirs-debug-flag",
+    
+    "relUrl": "/contribute/debugging#with-noirs-debug-flag"
+  },"8": {
+    "doc": "Debugging",
+    "title": "With LLDB",
+    "content": "And, with tools like CodeLLDB, a VSCode extension, you can debug Crystal-lang-based applications like Noir. LLDB Config (.vscode/launch.json) . { \"version\": \"0.2.0\", \"configurations\": [ { \"type\": \"lldb\", \"request\": \"launch\", \"name\": \"crystal: debug current file\", \"preLaunchTask\": \"crystal: build current file (debug)\", \"program\": \"${workspaceFolder}/bin/${fileBasenameNoExtension}\", \"args\": [], \"cwd\": \"${workspaceFolder}\", \"initCommands\": [ \"command script import /path/to/crystal/etc/lldb/crystal_formatters.py\" ] } ] } . https://github.com/crystal-lang/crystal/blob/master/etc/lldb/crystal_formatters.py . ",
+    "url": "/docs/contribute/debugging#with-lldb",
+    
+    "relUrl": "/contribute/debugging#with-lldb"
+  },"9": {
+    "doc": "Debugging",
+    "title": "Debugging",
+    "content": " ",
+    "url": "/docs/contribute/debugging",
+    
+    "relUrl": "/contribute/debugging"
+  },"10": {
+    "doc": "Deliver",
+    "title": "Flags",
+    "content": "Deliver: --send-req Send the results to the web request --send-proxy http://proxy.. Send the results to the web request via http proxy --send-es http://es.. Send the results to elasticsearch --with-headers X-Header:Value Add Custom Headers to be Used in Deliver --use-matchers string Delivers URLs that match a specific condition --use-filters string Excludes URLs that match a specific condition . ",
+    "url": "/docs/getting-further/deliver/#flags",
+    
+    "relUrl": "/getting-further/deliver/#flags"
+  },"11": {
+    "doc": "Deliver",
+    "title": "Example",
+    "content": "Send to proxy . noir -b . -u http://localhost:4000 --send-proxy http://localhost:8090 . If you’re using BurpSuite, referring to the link below for Send Proxy would be beneficial. | https://github.com/noir-cr/noir/issues/27 | https://portswigger.net/burp/documentation/desktop/tools/proxy/invisible | . In summary, it’s about information regarding an invisible proxy, and there might be a need for certain configurations(Checking 'support invisible proxying') in BurpSuite. Send to Elastic Search . # noir -b &lt;BASE-PATH&gt; --send-es http://&lt;ES-ENDPOINT&gt;/&lt;INDEX&gt;/&lt;TYPE&gt; noir -b ./app/ --send-es http://localhost:9200/noir/url . Send with Headers . Command . noir -b . -u http://localhost:4000 \\ --send-proxy http://localhost:8090 \\ --with-headers \"X-API-Key: abcdefg\" \\ --with-headers \"Device-ID: 1290874198274\" . Request . GET http://localhost:4000/secret.html HTTP/1.1 X-API-Key: abcdefg Device-ID: 1290874198274 User-Agent: Noir/0.10.0 Accept: */* host: localhost:4000 . ",
+    "url": "/docs/getting-further/deliver/#example",
+    
+    "relUrl": "/getting-further/deliver/#example"
+  },"12": {
+    "doc": "Deliver",
+    "title": "Deliver",
+    "content": " ",
+    "url": "/docs/getting-further/deliver/",
+    
+    "relUrl": "/getting-further/deliver/"
+  },"13": {
+    "doc": "Endpoints Structure",
+    "title": "Endpoints Structure",
+    "content": "| Name | Desc | Examples | . | protocol | Endpoint’s protocol | http | . | method | Endpoint’s Method | POST | . | url | Base URL + Path | https://testapp.internal.domains/comments | . | params | Parameters (Array) | [] | . | params.name | Parameter’s name | title | . | params.param_type | Parameter’s type | json | . | params.value | Parameter’s value | this_is_value | . [ ... { \"method\": \"POST\", \"params\": [ { \"name\": \"article_slug\", \"param_type\": \"json\", \"value\": \"\" }, { \"name\": \"title\", \"param_type\": \"json\", \"value\": \"\" }, { \"name\": \"id\", \"param_type\": \"json\", \"value\": \"\" } ], \"protocol\": \"http\", \"url\": \"https://testapp.internal.domains/comments\" } ] . ",
+    "url": "/docs/getting-further/endpoints/",
+    
+    "relUrl": "/getting-further/endpoints/"
+  },"14": {
+    "doc": "How to Contribute",
+    "title": "Contribute",
+    "content": ". | Write code in forked repo | Make Pull Request to dev branch | Finish :D | . ",
+    "url": "/docs/contribute/how-to-contribute#contribute",
+    
+    "relUrl": "/contribute/how-to-contribute#contribute"
+  },"15": {
+    "doc": "How to Contribute",
+    "title": "Code structure",
+    "content": ". | spec (for crystal spec) . | unit_test: unit-test codes | functional_test: functional test codes | . | src . | analyzer: Code analyzers for Endpoint URL and Parameter analysis | detector: Codes for language, framework identification | models: Everything for the model, such as class, structure, etc | utils: Utility codes | etc… | . | noir.cr: main and command-line parser | . ",
+    "url": "/docs/contribute/how-to-contribute#code-structure",
+    
+    "relUrl": "/contribute/how-to-contribute#code-structure"
+  },"16": {
+    "doc": "How to Contribute",
+    "title": "References",
+    "content": ". | https://github.com/noir-cr/noir/blob/main/CONTRIBUTING.md | . ",
+    "url": "/docs/contribute/how-to-contribute#references",
+    
+    "relUrl": "/contribute/how-to-contribute#references"
+  },"17": {
+    "doc": "How to Contribute",
+    "title": "How to Contribute",
+    "content": " ",
+    "url": "/docs/contribute/how-to-contribute",
+    
+    "relUrl": "/contribute/how-to-contribute"
+  },"18": {
+    "doc": "Getting Further",
+    "title": "Getting Further",
+    "content": " ",
+    "url": "/docs/getting-further/",
+    
+    "relUrl": "/getting-further/"
+  },"19": {
+    "doc": "Contribute",
+    "title": "Noir",
+    "content": "https://github.com/noir-cr/noir . ",
+    "url": "/docs/contribute/#noir",
+    
+    "relUrl": "/contribute/#noir"
+  },"20": {
+    "doc": "Contribute",
+    "title": "Noir Documentation",
+    "content": "https://github.com/noir-cr/docs . ",
+    "url": "/docs/contribute/#noir-documentation",
+    
+    "relUrl": "/contribute/#noir-documentation"
+  },"21": {
+    "doc": "Contribute",
+    "title": "Contribute",
+    "content": "Noir is open-source project and made it with ❤️ . ",
+    "url": "/docs/contribute/",
+    
+    "relUrl": "/contribute/"
+  },"22": {
+    "doc": "Getting Started",
+    "title": "Getting Started",
+    "content": " ",
+    "url": "/docs/getting-started/",
+    
+    "relUrl": "/getting-started/"
+  },"23": {
+    "doc": "Installation",
+    "title": "Homebrew (macOS)",
+    "content": "brew install noir # https://formulae.brew.sh/formula/noir . ",
+    "url": "/docs/getting-started/installation/#homebrew-macos",
+    
+    "relUrl": "/getting-started/installation/#homebrew-macos"
+  },"24": {
+    "doc": "Installation",
+    "title": "From Sources",
+    "content": "# Install Crystal-lang # https://crystal-lang.org/install/ # Clone this repo git clone https://github.com/noir-cr/noir cd noir # Install Dependencies shards install # Build shards build --release --no-debug # Copy binary cp ./bin/noir /usr/bin/ . ",
+    "url": "/docs/getting-started/installation/#from-sources",
+    
+    "relUrl": "/getting-started/installation/#from-sources"
+  },"25": {
+    "doc": "Installation",
+    "title": "Docker (GHCR)",
+    "content": "docker pull ghcr.io/noir-cr/noir:main . ",
+    "url": "/docs/getting-started/installation/#docker-ghcr",
+    
+    "relUrl": "/getting-started/installation/#docker-ghcr"
+  },"26": {
+    "doc": "Installation",
+    "title": "Installation",
+    "content": " ",
+    "url": "/docs/getting-started/installation/",
+    
+    "relUrl": "/getting-started/installation/"
+  },"27": {
+    "doc": "Formatting and Linting",
+    "title": "Formatting",
+    "content": "crystal tool format . ",
+    "url": "/docs/contribute/formatting_linting#formatting",
+    
+    "relUrl": "/contribute/formatting_linting#formatting"
+  },"28": {
+    "doc": "Formatting and Linting",
+    "title": "Linting",
+    "content": "You align code conventions using Ameba. Refer to the link https://github.com/crystal-ameba/ameba#installation to install Ameba. # Basic ameba # Auto fix ameba --fix . Ameba conf: .ameba.yml . ",
+    "url": "/docs/contribute/formatting_linting#linting",
+    
+    "relUrl": "/contribute/formatting_linting#linting"
+  },"29": {
+    "doc": "Formatting and Linting",
+    "title": "Formatting and Linting",
+    "content": " ",
+    "url": "/docs/contribute/formatting_linting",
+    
+    "relUrl": "/contribute/formatting_linting"
+  },"30": {
+    "doc": "Output Formats",
+    "title": "Basic",
+    "content": "noir -b sources # GET /secret.html # GET /posts # GET /posts/1 # POST /posts {\"id\":\"\",\"title\":\"\",\"context\":\"\"} X-API-KEY: # PUT /posts/1 {\"id\":\"\",\"title\":\"\",\"context\":\"\"} X-API-KEY: # DELETE /posts/1 . ",
+    "url": "/docs/getting-further/output/#basic",
+    
+    "relUrl": "/getting-further/output/#basic"
+  },"31": {
+    "doc": "Output Formats",
+    "title": "JSON",
+    "content": "noir -b sources -f json # [{\"url\":\"/secret.html\",\"method\":\"GET\",\"params\":[],\"headers\":[],\"protocol\":\"http\"},{\"url\":\"/posts\",\"method\":\"GET\",\"params\":[],\"headers\":[],\"protocol\":\"http\"},{\"url\":\"/posts/1\",\"method\":\"GET\",\"params\":[],\"headers\":[],\"protocol\":\"http\"},{\"url\":\"/posts\",\"method\":\"POST\",\"params\":[{\"name\":\"id\",\"value\":\"\",\"param_type\":\"json\"},{\"name\":\"title\",\"value\":\"\",\"param_type\":\"json\"},{\"name\":\"context\",\"value\":\"\",\"param_type\":\"json\"},{\"name\":\"X-API-KEY\",\"value\":\"\",\"param_type\":\"header\"}],\"headers\":[],\"protocol\":\"http\"},{\"url\":\"/posts/1\",\"method\":\"PUT\",\"params\":[{\"name\":\"id\",\"value\":\"\",\"param_type\":\"json\"},{\"name\":\"title\",\"value\":\"\",\"param_type\":\"json\"},{\"name\":\"context\",\"value\":\"\",\"param_type\":\"json\"},{\"name\":\"X-API-KEY\",\"value\":\"\",\"param_type\":\"header\"}],\"headers\":[],\"protocol\":\"http\"},{\"url\":\"/posts/1\",\"method\":\"DELETE\",\"params\":[],\"headers\":[],\"protocol\":\"http\"}] . ",
+    "url": "/docs/getting-further/output/#json",
+    
+    "relUrl": "/getting-further/output/#json"
+  },"32": {
+    "doc": "Output Formats",
+    "title": "YAML",
+    "content": "noir -b sources -f json # --- # - url: /secret.html # method: GET # params: [] # headers: [] # protocol: http # - url: /posts # method: GET # params: &amp;1 [] # headers: [] # protocol: http # .... ",
+    "url": "/docs/getting-further/output/#yaml",
+    
+    "relUrl": "/getting-further/output/#yaml"
+  },"33": {
+    "doc": "Output Formats",
+    "title": "Curl",
+    "content": "noir -b sources -f curl # curl -i -X GET /secret.html # curl -i -X GET /posts # curl -i -X GET /posts/1 # curl -i -X POST /posts -d \"{\"id\":\"\",\"title\":\"\",\"context\":\"\"}\" -H \"Content-Type:application/json\" -H \"X-API-KEY: \" # curl -i -X PUT /posts/1 -d \"{\"id\":\"\",\"title\":\"\",\"context\":\"\"}\" -H \"Content-Type:application/json\" -H \"X-API-KEY: \" # curl -i -X DELETE /posts/1 . ",
+    "url": "/docs/getting-further/output/#curl",
+    
+    "relUrl": "/getting-further/output/#curl"
+  },"34": {
+    "doc": "Output Formats",
+    "title": "HTTpie",
+    "content": "noir -b sources -f httpie # http GET /secret.html # http GET /posts # http GET /posts/1 # http POST /posts {\"id\":\"\",\"title\":\"\",\"context\":\"\"} \"Content-Type:application/json\" \"X-API-KEY: \" # http PUT /posts/1 {\"id\":\"\",\"title\":\"\",\"context\":\"\"} \"Content-Type:application/json\" \"X-API-KEY: \" # http DELETE /posts/1 . ",
+    "url": "/docs/getting-further/output/#httpie",
+    
+    "relUrl": "/getting-further/output/#httpie"
+  },"35": {
+    "doc": "Output Formats",
+    "title": "Markdown Table",
+    "content": "noir -b . -f markdown-table # | Endpoint | Protocol | Params | # | -------- | -------- | ------ | # | GET /secret.html | http | # | GET /posts | http | # | GET /posts/1 | http | # | POST /posts | http | `id (json)` `title (json)` `context (json)` `X-API-KEY (header)` | # | PUT /posts/1 | http | `id (json)` `title (json)` `context (json)` `X-API-KEY (header)` | # | DELETE /posts/1 | http | . ",
+    "url": "/docs/getting-further/output/#markdown-table",
+    
+    "relUrl": "/getting-further/output/#markdown-table"
+  },"36": {
+    "doc": "Output Formats",
+    "title": "OAS2/OAS3",
+    "content": "noir -b . -f oas2 noir -b . -f oas3 # OAS2 # {\"swagger\":\"2.0\",\"info\":{\"title\":\"Generated by Noir\",\"version\":\"\"},\"basePath\":\"\",\"paths\":{\"/secret.html\":{\"get\":{\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"parameters\":[]}},\"/posts\":{\"post\":{\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"parameters\":[{\"name\":\"id\",\"in\":\"form\"},{\"name\":\"title\",\"in\":\"form\"},{\"name\":\"context\",\"in\":\"form\"},{\"name\":\"X-API-KEY\",\"in\":\"header\"}]}},\"/posts/1\":{\"delete\":{\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"parameters\":[]}}}} # OAS3 # {\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Generated by Noir\",\"version\":\"\"},\"paths\":{\"/secret.html\":{\"get\":{\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"parameters\":[]}},\"/posts\":{\"post\":{\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"parameters\":[{\"name\":\"id\",\"in\":\"form\"},{\"name\":\"title\",\"in\":\"form\"},{\"name\":\"context\",\"in\":\"form\"},{\"name\":\"X-API-KEY\",\"in\":\"header\"}]}},\"/posts/1\":{\"delete\":{\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"parameters\":[]}}}} . ",
+    "url": "/docs/getting-further/output/#oas2oas3",
+    
+    "relUrl": "/getting-further/output/#oas2oas3"
+  },"37": {
+    "doc": "Output Formats",
+    "title": "Output Formats",
+    "content": "Noir supports various output formats such as JSON, YAML, among others. ",
+    "url": "/docs/getting-further/output/",
+    
+    "relUrl": "/getting-further/output/"
+  },"38": {
+    "doc": "Struct of Project",
+    "title": "Detector",
+    "content": "The Detector in Noir investigates the programming languages, frameworks, and specification documents present in the source code at the base path. ",
+    "url": "/docs/contribute/structure#detector",
+    
+    "relUrl": "/contribute/structure#detector"
+  },"39": {
+    "doc": "Struct of Project",
+    "title": "Analyzer",
+    "content": "The Analyzer in Noir works based on the information gathered by the Detector to identify actual endpoints. It finding methods, paths, parameters, and more. ",
+    "url": "/docs/contribute/structure#analyzer",
+    
+    "relUrl": "/contribute/structure#analyzer"
+  },"40": {
+    "doc": "Struct of Project",
+    "title": "Deliver",
+    "content": "The Deliver feature in Noir handles the transmission of the endpoints identified by the Analyzer. While Noir typically outputs via stdout, using Deliver enables additional transmission to tools like Proxy or ElasticSearch. ",
+    "url": "/docs/contribute/structure#deliver",
+    
+    "relUrl": "/contribute/structure#deliver"
+  },"41": {
+    "doc": "Struct of Project",
+    "title": "Output Builder",
+    "content": "The Output Builder feature is responsible for generating results. It transforms the object containing discovered endpoints into formats like JSON, YAML, and Curl. ",
+    "url": "/docs/contribute/structure#output-builder",
+    
+    "relUrl": "/contribute/structure#output-builder"
+  },"42": {
+    "doc": "Struct of Project",
+    "title": "Struct of Project",
+    "content": " ",
+    "url": "/docs/contribute/structure",
+    
+    "relUrl": "/contribute/structure"
+  },"43": {
+    "doc": "Supports",
+    "title": "Supports",
+    "content": "Endpoint’s Entities . | Path | Method | Param | Header | Protocol (e.g ws) | . Languages and Frameworks . | Language | Framework | URL | Method | Param | Header | WS | . | Crystal | Kemal | ✅ | ✅ | ✅ | ✅ | ✅ | . | Go | Echo | ✅ | ✅ | ✅ | ✅ | X | . | Go | Gin | ✅ | ✅ | ✅ | ✅ | X | . | Python | Django | ✅ | ✅ | ✅ | ✅ | X | . | Python | Flask | ✅ | ✅ | ✅ | ✅ | X | . | Python | FastAPI | ✅ | ✅ | ✅ | ✅ | ✅ | . | Ruby | Rails | ✅ | ✅ | ✅ | ✅ | X | . | Ruby | Sinatra | ✅ | ✅ | ✅ | ✅ | X | . | Php |   | ✅ | ✅ | ✅ | ✅ | X | . | Java | Jsp | ✅ | ✅ | ✅ | X | X | . | Java | Armeria | ✅ | ✅ | X | X | X | . | Java | Spring | ✅ | ✅ | X | X | X | . | Kotlin | Spring | ✅ | ✅ | X | X | X | . | JS | Express | ✅ | ✅ | X | X | X | . | Rust | Axum | ✅ | ✅ | X | X | X | . | C# | ASP.NET MVC | ✅ | X | X | X | X | . | JS | Next | X | X | X | X | X | . Specification . | Specification | Format | URL | Method | Param | Header | WS | . | OAS 2.0 (Swagger 2.0) | JSON | ✅ | ✅ | ✅ | ✅ | X | . | OAS 2.0 (Swagger 2.0) | YAML | ✅ | ✅ | ✅ | ✅ | X | . | OAS 3.0 | JSON | ✅ | ✅ | ✅ | ✅ | X | . | OAS 3.0 | YAML | ✅ | ✅ | ✅ | ✅ | X | . | RAML | YAML | ✅ | ✅ | ✅ | ✅ | X | . ",
+    "url": "/docs/getting-started/supports/#supports",
+    
+    "relUrl": "/getting-started/supports/#supports"
+  },"44": {
+    "doc": "Supports",
+    "title": "Supports",
+    "content": "Noir supports various programming languages and frameworks. You can check the provided list with the command noir --list-techs. ",
+    "url": "/docs/getting-started/supports/",
+    
+    "relUrl": "/getting-started/supports/"
+  },"45": {
+    "doc": "Testing",
+    "title": "Testing",
+    "content": "Noir manages code quality through both Unit and Functional testing. You can execute test code using Crystal’s spec feature. # Basic testing crystal spec # If you want more detail? crystal spec -v . ",
+    "url": "/docs/contribute/testing",
+    
+    "relUrl": "/contribute/testing"
+  },"46": {
+    "doc": "Testing",
+    "title": "Unit Test",
+    "content": "Unit tests are defined under spec/unit_test/ in Noir. # Example describe \"Detect Java Armeria\" do options = default_options() instance = DetectorJavaArmeria.new options it \"pom.xml\" do instance.detect(\"pom.xml\", \"com.linecorp.armeria\").should eq(true) end it \"build.gradle\" do instance.detect(\"build.gradle\", \"com.linecorp.armeria\").should eq(true) end end . ",
+    "url": "/docs/contribute/testing#unit-test",
+    
+    "relUrl": "/contribute/testing#unit-test"
+  },"47": {
+    "doc": "Testing",
+    "title": "Functional Test",
+    "content": "Functional tests are defined under spec/functional_test/ in Noir. Functional tests consist of Fixtures and Testers. | spec/functional_test/fixtures/* | spec/functional_test/testers/* | . Fixtures involve creating sample code that resembles the actual code under analysis. Testers, on the other hand, use Fixture paths to verify if detection is accurate, the number of discovered endpoints, and whether the expected information matches the detailed information of detected endpoints (such as paths, methods, parameters, etc.). # Example of Rails Analyzer extected_endpoints = [ Endpoint.new(\"/secret.html\", \"GET\"), Endpoint.new(\"/posts\", \"GET\"), Endpoint.new(\"/posts/1\", \"GET\"), Endpoint.new(\"/posts\", \"POST\", [ Param.new(\"id\", \"\", \"json\"), Param.new(\"title\", \"\", \"json\"), Param.new(\"context\", \"\", \"json\"), Param.new(\"X-API-KEY\", \"\", \"header\"), ]), Endpoint.new(\"/posts/1\", \"PUT\", [ Param.new(\"id\", \"\", \"json\"), Param.new(\"title\", \"\", \"json\"), Param.new(\"context\", \"\", \"json\"), Param.new(\"X-API-KEY\", \"\", \"header\"), ]), Endpoint.new(\"/posts/1\", \"DELETE\"), ] FunctionalTester.new(\"fixtures/rails/\", { :techs =&gt; 1, :endpoints =&gt; 6, }, extected_endpoints).test_all . ",
+    "url": "/docs/contribute/testing#functional-test",
+    
+    "relUrl": "/contribute/testing#functional-test"
+  },"48": {
+    "doc": "Usage",
+    "title": "Basic",
+    "content": "noir -b &lt;base-path&gt; &lt;flags...&gt; . noir -b . -u https://www.hahwul.com . ",
+    "url": "/docs/getting-started/usage/#basic",
+    
+    "relUrl": "/getting-started/usage/#basic"
+  },"49": {
+    "doc": "Usage",
+    "title": "Usage",
+    "content": "Usage: noir &lt;flags&gt; Basic: -b PATH, --base-path ./app (Required) Set base path -u URL, --url http://.. Set base url for endpoints -s SCOPE, --scope url,param Set scope for detection Output: -f FORMAT, --format json Set output format [plain/json/yaml/markdown-table/curl/httpie/oas2/oas3] -o PATH, --output out.txt Write result to file --set-pvalue VALUE Specifies the value of the identified parameter --no-color Disable color output --no-log Displaying only the results Deliver: --send-req Send the results to the web request --send-proxy http://proxy.. Send the results to the web request via http proxy --send-es http://es.. Send the results to elasticsearch --with-headers X-Header:Value Add Custom Headers to be Used in Deliver --use-matchers string Delivers URLs that match a specific condition --use-filters string Excludes URLs that match a specific condition Technologies: -t TECHS, --techs rails,php Specify the technologies to use --exclude-techs rails,php Specify the technologies to be excluded --list-techs Show all technologies Others: -d, --debug Show debug messages -v, --version Show version -h, --help Show help . ",
+    "url": "/docs/getting-started/usage/",
+    
+    "relUrl": "/getting-started/usage/"
+  },"50": {
+    "doc": "Usage",
+    "title": "Example",
+    "content": "# noir -b my_sources [*] Detecting technologies to base directory. [I] Detected 1 technologies. ruby_rails [*] Initiate code analysis based on the detected technology. [*] Starting analysis of endpoints. 19 Analyzers initialized Analysis to 1 technologies 6 endpoints found [*] Optimizing endpoints. [I] Finally identified 6 endpoints. [*] Generating Report. GET /secret.html GET /posts GET /posts/1 POST /posts {\"id\":\"\",\"title\":\"\",\"context\":\"\"} X-API-KEY: PUT /posts/1 {\"id\":\"\",\"title\":\"\",\"context\":\"\"} X-API-KEY: DELETE /posts/1 . ",
+    "url": "/docs/getting-started/usage/#example",
+    
+    "relUrl": "/getting-started/usage/#example"
+  }
+}
